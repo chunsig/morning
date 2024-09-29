@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🍀모닝복권</title>
     <style>
-        /* 페이지 전체를 flex로 중앙 정렬 */
         body {
             display: flex;
-            justify-content: center;  /* 수평 중앙 정렬 */
-            align-items: center;      /* 수직 중앙 정렬 */
-            height: 100vh;            /* 화면 전체 높이 사용 */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
         }
 
-        /* 컨텐츠를 감싸는 div */
         .container {
-            text-align: center;  /* 텍스트와 선택 요소를 중앙에 배치 */
+            text-align: center;
         }
 
         h1 {
@@ -84,7 +82,7 @@
             const sharedDeposit = totalValue * percentage;
 
             document.getElementById("result").innerText = `받아야 하는 값: ${formatMoney(Math.floor(totalValue))}`;
-            document.getElementById("sharedDeposit").innerText = `공동계좌 입금액: ${formatMoney(Math.floor(sharedDeposit))}`;
+            document.getElementById("sharedDeposit").innerText = `공동계좌 입금액: ${Math.floor(sharedDeposit)}`;  // 숫자만 표시
         }
     </script>
 </head>
@@ -92,7 +90,7 @@
     <div class="container">
         <h1>🍀모닝복권</h1>
 
-        <label for="userType">가격:</label>
+        <label for="userType">사용자 유형 선택:</label>
         <select id="userType" onchange="updateRange()">
             <option value="30000000">일반유저 (3천만원)</option>
             <option value="20000000">뉴비 (2천만원)</option>
