@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍀모닝복권</title>
+    <style>
+        /* 페이지 전체를 flex로 중앙 정렬 */
+        body {
+            display: flex;
+            justify-content: center;  /* 수평 중앙 정렬 */
+            align-items: center;      /* 수직 중앙 정렬 */
+            height: 100vh;            /* 화면 전체 높이 사용 */
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 컨텐츠를 감싸는 div */
+        .container {
+            text-align: center;  /* 텍스트와 선택 요소를 중앙에 배치 */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: green;
+            margin-bottom: 20px;
+        }
+
+        label, select, input {
+            font-size: 1.2em;
+            margin: 10px 0;
+            display: block;
+        }
+
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+
+        #result, #sharedDeposit {
+            margin-top: 20px;
+            font-size: 1.3em;
+        }
+    </style>
+    <script>
+        function updateRange() {
+            const userType = document.getElementById("userType").value;
+            const multiplierInput = document.getElementById("multiplier");
+
+            if (userType === "30000000") {
+                multiplierInput.max = 50;
+            } else if (userType === "20000000") {
+                multiplierInput.max = 20;
+            }
+        }
+
+        function formatMoney(value) {
+            if (value >= 100000000) {
+                return (value / 100000000) + "억원";
+            } else if (value >= 10000) {
+                return (value / 10000) + "만원";
+            } else {
+                return value + "원";
+            }
+        }
+
+        function calculate() {
+            const amount = parseFloat(document.getElementById("userType").value);
+            const multiplier = parseFloat(document.getElementById("multiplier").value);
+            const position = document.getElementById("position").value;
+
+            const percentageMap = {
+                "intern": 0.7,
+                "employee": 0.65,
+                "assistant_manager": 0.6,
+                "manager": 0.55,
+                "director": 0.5,
+                "ceo": 0.4
+            };
+
+            const percentage = percentageMap[position];
+            const totalValue = amount * multiplier;
+            const sharedDeposit = totalValue * percentage;
+
+            document.getElementById("result").innerText = `받아야 하는 값: ${formatMoney(Math.floor(totalValue))}`;
+            document.getElementById("sharedDeposit").innerText = `공동계좌 입금액: ${formatMoney(Math.floor(sharedDeposit))}`;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🍀모닝복권</h1>
+
+        <label for="userType">가격:</label>
+        <select id="userType" onchange="updateRange()">
+            <option value="30000000">일반유저 (3천만원)</option>
+            <option value="20000000">뉴비 (2천만원)</option>
+        </select>
+
+        <label for="position">직급 선택:</label>
+        <select id="position">
+            <option value="intern">인턴 (70%)</option>
+            <option value="employee">사원 (65%)</option>
+            <option value="assistant_manager">대리, 주임 (60%)</option>
+            <option value="manager">과장, 차장 (55%)</option>
+            <option value="director">부장, 비서 (50%)</option>
+            <option value="ceo">회장, 부회장, 사장 (40%)</option>
+        </select>
+
+        <label for="multiplier">곱할 숫자:</label>
+        <input type="number" id="multiplier" min="1" max="50" value="1">
+
+        <button onclick="calculate()">계산하기</button>
+
+        <div id="result">받아야 하는 값:</div>
+        <div id="sharedDeposit">공동계좌 입금액:</div>
+    </div>
+</body>
+</html>
