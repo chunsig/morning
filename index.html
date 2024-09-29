@@ -55,11 +55,11 @@
 
         function formatMoney(value) {
             if (value >= 100000000) {
-                return (value / 100000000) + "억원";
+                return (value / 100000000).toFixed(0) + "억원";
             } else if (value >= 10000) {
-                return (value / 10000) + "만원";
+                return (value / 10000).toFixed(0) + "만원";
             } else {
-                return value + "원";
+                return value.toFixed(0) + "원";
             }
         }
 
@@ -82,7 +82,7 @@
             const sharedDeposit = totalValue * percentage;
 
             document.getElementById("result").innerText = `받아야 하는 값: ${formatMoney(Math.floor(totalValue))}`;
-            document.getElementById("sharedDeposit").innerText = `공동계좌 입금액: ${Math.floor(sharedDeposit)}`;  // 숫자만 표시
+            document.getElementById("sharedDeposit").innerText = `공동계좌 입금액: ${Math.floor(sharedDeposit)}`;  // 소수점 없는 숫자만 표시
         }
     </script>
 </head>
